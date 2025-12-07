@@ -25,11 +25,6 @@ spec:
         ports:
         - containerPort: 8080
           protocol: TCP
-        - dapr-placement-server.dapr-system.svc.cluster.local:50005
-        - --sentry-address
-        - dapr-sentry.dapr-system.svc.cluster.local:443
-        - --control-plane-address
-        - dapr-sidecar-injector.dapr-system.svc.cluster.local:4000
         env:
         - name: NAMESPACE
           valueFrom:
