@@ -12,12 +12,6 @@ spec:
     metadata:
       labels:
         app: product-service
-      annotations:
-        # 🟢 DAPR INJECTION ANNOTATIONS (The injector handles the sidecar container)
-        dapr.io/enabled: "true"
-        dapr.io/app-id: "productservice"
-        dapr.io/app-port: "8080"
-        dapr.io/enable-api-logging: "true"
     spec:
       serviceAccountName: pubsub-sa
       containers:
