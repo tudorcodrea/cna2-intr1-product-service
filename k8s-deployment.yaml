@@ -53,7 +53,7 @@ metadata:
   namespace: microservices
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
-spec:
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-target: "HTTP:80/products"
   selector:
     app: product-service
   ports:

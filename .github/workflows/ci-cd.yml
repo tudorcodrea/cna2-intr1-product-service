@@ -73,3 +73,9 @@ jobs:
       run: |
         kubectl --kubeconfig $KUBECONFIG apply -f k8s-deployment.yaml
         kubectl --kubeconfig $KUBECONFIG rollout status deployment/product-service -n microservices
+
+    - name: Port forward and test service
+      run: |
+        kubectl --kubeconfig $KUBECONFIG port-forward svc/product-service 8080:80 -n microservices &
+        sleep 10
+        curl http://localhost:8080/products

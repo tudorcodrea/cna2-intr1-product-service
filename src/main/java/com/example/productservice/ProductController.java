@@ -17,6 +17,11 @@ public class ProductController {
         this.snsService = snsService;
     }
 
+    @GetMapping("/")
+    public String health() {
+        return "OK";
+    }
+
     @PostMapping
     public String createProduct(@RequestBody Product product) {
         Product newProduct = new Product(product.getName(), product.getDescription());
