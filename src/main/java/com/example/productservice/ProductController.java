@@ -19,7 +19,7 @@ public class ProductController {
         return "OK";
     }
 
-    @PostMapping(path = "/", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/prod", consumes = "application/json", produces = "application/json")
     public String createProduct(@RequestBody Product product) {
         Product newProduct = new Product(product.getName(), product.getDescription());
         // snsService.publishProductEvent(newProduct);
