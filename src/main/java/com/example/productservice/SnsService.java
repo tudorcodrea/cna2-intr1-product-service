@@ -1,33 +1,38 @@
 package com.example.productservice;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.PublishRequest;
+import software.amazon.awssdk.services.sns.model.PublishResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 @Service
 public class SnsService {
 
-    private final RestTemplate restTemplate;
+    private final SnsClient snsClient;
+    private final ObjectMapper objectMapper;
 
-    @Value("${dapr.pubsub.name:orders-pubsub}")
-    private String pubsubName;
+    @Value("${sns.topic.arn}")
+    private String topicArn;
 
-    @Value("${dapr.topic.name:orders-events}")
-    private String topicName;
-
-    public SnsService(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
+    public SnsService() {
+        this.snsClient = SnsClient.create();
+        this.objectMapper = new ObjectMapper();
     }
 
     public void publishProductEvent(Product product) {
-        String url = "http://localhost:3500/v1.0/publish/" + pubsubName + "/" + topicName;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Product> entity = new HttpEntity<>(product, headers);
-        restTemplate.postForEntity(url, entity, String.class);
+        try {
+            String message = objectMapper.writeValueAsString(product);
+            PublishRequest request = PublishRequest.builder()
+                    .topicArn(topicArn)
+                    .message(message)
+                    .build();
+            PublishResponse response = snsClient.publish(request);
+            System.out.println("Published product event: " + response.messageId());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 }
