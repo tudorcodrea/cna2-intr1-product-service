@@ -72,6 +72,7 @@ jobs:
     - name: Deploy to EKS
       run: |
         kubectl --kubeconfig $KUBECONFIG apply -f k8s-deployment.yaml
+        kubectl --kubeconfig $KUBECONFIG rollout restart deployment/product-service -n microservices
         kubectl --kubeconfig $KUBECONFIG rollout status deployment/product-service -n microservices
 
     - name: Port forward and test service
