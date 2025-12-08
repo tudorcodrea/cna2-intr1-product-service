@@ -11,19 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/products")
 public class ProductController {
 
-    private final SnsService snsService;
-
     @Autowired
-    public ProductController(SnsService snsService) {
-        this.snsService = snsService;
-    }
+    private SnsService snsService;
 
-    @GetMapping("/")
+    @GetMapping(path = "/health", produces = "application/json")
     public String health() {
         return "OK";
     }
 
-    @PostMapping
+    @PostMapping(path = "/", consumes = "application/json", produces = "application/json")
     public String createProduct(@RequestBody Product product) {
         Product newProduct = new Product(product.getName(), product.getDescription());
         // snsService.publishProductEvent(newProduct);

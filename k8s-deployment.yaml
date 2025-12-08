@@ -18,6 +18,7 @@ spec:
       # 🔵 APPLICATION CONTAINER (Only your app container)
       - name: product-service
         image: 660633971866.dkr.ecr.us-east-1.amazonaws.com/introspect1eks-product:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
           protocol: TCP
