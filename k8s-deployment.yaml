@@ -13,6 +13,7 @@ spec:
       labels:
         app: product-service
       annotations:
+        # 🟢 DAPR INJECTION ANNOTATIONS (The injector handles the sidecar container)
         dapr.io/enabled: "true"
         dapr.io/app-id: "productservice"
         dapr.io/app-port: "8080"
@@ -20,6 +21,7 @@ spec:
     spec:
       serviceAccountName: pubsub-sa
       containers:
+      # 🔵 APPLICATION CONTAINER (Only your app container)
       - name: product-service
         image: 660633971866.dkr.ecr.us-east-1.amazonaws.com/introspect1eks-product:latest
         ports:
@@ -34,13 +36,16 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
+        # Define DAPR ports for app clarity, though Dapr sets them automatically
         - name: DAPR_HTTP_PORT
           value: "3500"
         - name: DAPR_GRPC_PORT
           value: "50001"
         - name: DAPR_METRICS_PORT
           value: "9090"
+
 ---
+# 🟡 KUBERNETES SERVICE (Remains the same)
 apiVersion: v1
 kind: Service
 metadata:

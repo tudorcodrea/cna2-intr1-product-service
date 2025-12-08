@@ -20,7 +20,7 @@ public class ProductController {
     @PostMapping
     public String createProduct(@RequestBody Product product) {
         Product newProduct = new Product(product.getName(), product.getDescription());
-        snsService.publishProductEvent(newProduct);
+        // snsService.publishProductEvent(newProduct);
         return "Product creation event published for " + newProduct.getName();
     }
 }
