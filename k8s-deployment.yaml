@@ -31,13 +31,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        # Define DAPR ports for app clarity, though Dapr sets them automatically
-        - name: DAPR_HTTP_PORT
-          value: "3500"
-        - name: DAPR_GRPC_PORT
-          value: "50001"
-        - name: DAPR_METRICS_PORT
-          value: "9090"
+        - name: sns.topic.arn
+          value: "arn:aws:sns:us-east-1:660633971866:product-events-topic"
 
 ---
 # 🟡 KUBERNETES SERVICE (Remains the same)
