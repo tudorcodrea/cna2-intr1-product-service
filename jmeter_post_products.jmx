@@ -44,10 +44,10 @@
         </RandomVariableConfig>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /products/prod">
-          <stringProp name="HTTPSampler.domain">4l8m5dq0cl.execute-api.us-east-1.amazonaws.com</stringProp>
+          <stringProp name="HTTPSampler.domain">4ejw6jdvjl.execute-api.us-east-1.amazonaws.com</stringProp>
           <stringProp name="HTTPSampler.port">443</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">/prod/products/prod</stringProp>
+          <stringProp name="HTTPSampler.path">/prod/products</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
